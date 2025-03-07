@@ -1,83 +1,225 @@
-// Slideshow
-const images = ['1.jpg', '2.jpg', '3.jpg','4.jpg', '5.jpg', '6.jpg','7.jpg', '8.jpg', '9.jpg','10.jpg', '11.jpg', '12.jpg','13.jpg', '14.jpg', '15.jpg', '16.jpg'];
-let currentIndex = 0;
-const slideshowImage = document.getElementById('slideshow-image');
+// Khởi tạo các phần tử
+const letter = document.getElementById('letter');
+const messageButton = document.getElementById('message-button');
+const quizButton = document.getElementById('quiz-button');
+const quizSection = document.getElementById('quiz-section');
+const quizQuestion = document.getElementById('quiz-question');
+const quizOptions = document.querySelectorAll('.quiz-option');
+const messageModal = document.getElementById('message-modal');
+const quizResultModal = document.getElementById('quiz-result-modal');
+const messageText = document.getElementById('message-text');
+const quizResult = document.getElementById('quiz-result');
+const closeMessageModal = document.getElementById('close-message-modal');
+const closeQuizModal = document.getElementById('close-quiz-modal');
+const clickSound = document.getElementById('click-sound');
+const backgroundMusic = document.getElementById('background-music');
+const quizFeedback = document.getElementById('quiz-feedback');
+const musicOff = document.getElementById('music-off');
+const musicOn = document.getElementById('music-on');
 
-function updateImage() {
-    slideshowImage.classList.remove('active');
-    setTimeout(() => {
-        slideshowImage.src = images[currentIndex];
-        slideshowImage.classList.add('active');
-    }, 500);
-}
-
-document.getElementById('next-btn').addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % images.length;
-    updateImage();
-});
-
-document.getElementById('prev-btn').addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    updateImage();
-});
-
-setInterval(() => {
-    currentIndex = (currentIndex + 1) % images.length;
-    updateImage();
-}, 5000);
-
-// Modal lời nhắn
-const messages = [
-    "Em là ngôi sao sáng nhất trong bầu trời đêm của anh, dẫn lối cho anh qua mọi ngày dài.",
-    "Với anh, mỗi giây phút bên em là một bản tình ca không bao giờ dứt, ngọt ngào và sâu lắng.",
-    "Anh không hứa sẽ cho em cả thế giới, nhưng anh hứa sẽ dành cả thế giới của anh để yêu thương và che chở cho em.",
-    "Trái tim anh đã thuộc về em từ cái nhìn đầu tiên, và nó sẽ mãi đập vì em, dù thời gian có trôi qua bao lâu."
+// Dữ liệu câu hỏi
+const questions = [
+    {
+        question: "Lần đầu tiên anh nói yêu em là khi nào?",
+        options: { A: "Ngày sinh nhật em", B: "Lần hẹn hò thứ 3", C: "Ngày 14/2", D: "Ngày kỷ niệm 1 tháng" },
+        correct: "B"
+    },
+    {
+        question: "Món ăn em thích nhất mà anh hay làm là gì?",
+        options: { A: "Mì Ý", B: "Bánh mì trứng", C: "Phở", D: "Cơm chiên" },
+        correct: "A"
+    },
+    {
+        question: "Nơi mà chúng ta hay đi chơi nhất là đâu?",
+        options: { A: "Công viên", B: "Bãi biển", C: "Rạp chiếu phim", D: "Quán cà phê" },
+        correct: "C"
+    },
+    {
+        question: "Màu sắc yêu thích của anh là gì?",
+        options: { A: "Xanh dương", B: "Đỏ", C: "Vàng", D: "Tím" },
+        correct: "A"
+    },
+    {
+        question: "Điều anh yêu nhất ở em là gì?",
+        options: { A: "Nụ cười", B: "Sự dịu dàng", C: "Tính hài hước", D: "Đôi mắt" },
+        correct: "B"
+    }
 ];
 
-const modal = document.getElementById('modal');
-const messageText = document.getElementById('message-text');
-const loveButton = document.getElementById('love-button');
-const closeModal = document.getElementById('close-modal');
+// Lời nhắn ngẫu nhiên
+const randomMessages = [
+    "Em yêu, anh yêu em rất rất nhiều. ❤️",
+    "Hôm nay em có vui không? Anh luôn nghĩ đến em. 💕",
+    "Anh nhớ em quá, muốn gặp em ngay bây giờ! 😘",
+    "Em có muốn đi xem phim với anh tối nay không? 🌟",
+    "Chúc em ngủ ngon, mơ đẹp về anh nhé! 💤"
+];
 
-function typeMessage(text) {
-    messageText.textContent = ''; // Xóa nội dung cũ
-    let i = 0;
-    const speed = 50; // Tốc độ gõ chữ (ms)
+// Trạng thái
+let currentQuestionIndex = 0;
+let score = 0;
+let isMusicPlaying = false;
+
+// Mở lá thư và phát nhạc
+letter.addEventListener('click', () => {
+    if (!letter.classList.contains('open')) {
+        letter.classList.add('open');
+        letter.classList.remove('small');
+        if (!isMusicPlaying) {
+            backgroundMusic.play().catch(() => {});
+            isMusicPlaying = true;
+        }
+    }
+});
+
+// Slideshow
+const slides = document.querySelector('.slides');
+const images = slides.querySelectorAll('img');
+let currentIndex = 0;
+
+function updateSlides() {
+    const slideWidth = slides.clientWidth / images.length;
+    slides.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
+    images.forEach((img, idx) => {
+        img.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        img.style.opacity = idx === currentIndex ? 1 : 0.9;
+    });
+}
+
+let lastTime = 0;
+const slideInterval = 3000;
+
+function animateSlides(timestamp) {
+    if (timestamp - lastTime >= slideInterval) {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateSlides();
+        lastTime = timestamp;
+    }
+    requestAnimationFrame(animateSlides);
+}
+
+requestAnimationFrame(animateSlides);
+
+// Hiển thị lời nhắn với hiệu ứng đánh máy
+function typeMessage(message) {
+    let index = 0;
+    messageText.textContent = '';
     function type() {
-        if (i < text.length) {
-            messageText.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
+        if (index < message.length) {
+            messageText.textContent += message.charAt(index);
+            index++;
+            setTimeout(type, 50);
         }
     }
     type();
 }
 
-loveButton.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * messages.length);
-    const selectedMessage = messages[randomIndex];
-    modal.style.display = 'flex';
-    typeMessage(selectedMessage); // Gõ chữ từng ký tự
+messageButton.addEventListener('click', () => {
+    clickSound.play();
+    const randomMessage = randomMessages[Math.floor(Math.random() * randomMessages.length)];
+    messageModal.style.display = 'flex';
+    typeMessage(randomMessage);
 });
 
-closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
+closeMessageModal.addEventListener('click', () => {
+    messageModal.style.display = 'none';
+    messageText.textContent = '';
 });
 
-// Hoa rơi
-function createFlower() {
-    const flower = document.createElement('div');
-    flower.classList.add('flower');
-    flower.innerHTML = '🌸';
-    flower.style.left = Math.random() * 100 + 'vw';
-    flower.style.animationDuration = Math.random() * 4 + 3 + 's';
-    document.querySelector('.flower-container').appendChild(flower);
-    setTimeout(() => flower.remove(), 7000);
+// Bài kiểm tra
+quizButton.addEventListener('click', () => {
+    clickSound.play();
+    quizSection.style.display = 'block';
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+});
+
+function showQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    quizQuestion.textContent = currentQuestion.question;
+    quizOptions.forEach(option => {
+        const optionValue = option.getAttribute('data-option');
+        option.textContent = `${optionValue}: ${currentQuestion.options[optionValue]}`;
+    });
+    quizFeedback.textContent = '';
+    quizFeedback.classList.remove('show');
 }
 
-setInterval(createFlower, 500);
+quizOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        clickSound.play();
+        const selectedOption = option.getAttribute('data-option');
+        const currentQuestion = questions[currentQuestionIndex];
+        if (selectedOption === currentQuestion.correct) {
+            score++;
+            quizFeedback.textContent = 'Đúng! ❤️';
+            quizFeedback.style.color = '#ff69b4';
+        } else {
+            quizFeedback.textContent = 'Sai! 😢';
+            quizFeedback.style.color = '#ff1493';
+        }
+        quizFeedback.classList.add('show');
+        setTimeout(() => {
+            quizFeedback.classList.remove('show');
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showQuizResult();
+            }
+        }, 1500);
+    });
+});
 
-// Ánh sáng lấp lánh
+function showQuizResult() {
+    quizSection.style.display = 'none';
+    const percentage = (score / questions.length) * 100;
+    if (percentage === 100) {
+        quizResult.textContent = `Tuyệt vời! Tình yêu của chúng ta đạt 100%! 🎉`;
+        createFireworkBurst(10);
+    } else {
+        quizResult.textContent = `Tình yêu của chúng ta đạt ${percentage}%! Anh và em thật hiểu nhau! ❤️`;
+    }
+    quizResultModal.style.display = 'flex';
+}
+
+closeQuizModal.addEventListener('click', () => {
+    quizResultModal.style.display = 'none';
+});
+
+// Hiệu ứng pháo hoa đặc biệt khi 100%
+function createFireworkBurst(count) {
+    for (let i = 0; i < count; i++) {
+        setTimeout(createFirework, i * 200);
+    }
+}
+
+// Hiệu ứng nền
+function createBubble() {
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+    bubble.style.left = Math.random() * 100 + 'vw';
+    bubble.style.animationDuration = Math.random() * 4 + 4 + 's';
+    document.querySelector('.bubble-container').appendChild(bubble);
+    setTimeout(() => bubble.remove(), 8000);
+}
+
+setInterval(createBubble, 400);
+
+function createSnowflake() {
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    snowflake.innerHTML = '❄';
+    snowflake.style.left = Math.random() * 100 + 'vw';
+    snowflake.style.animationDuration = Math.random() * 8 + 5 + 's';
+    snowflake.style.fontSize = Math.random() * 10 + 8 + 'px';
+    document.querySelector('.snowflake-container').appendChild(snowflake);
+    setTimeout(() => snowflake.remove(), 13000);
+}
+
+setInterval(createSnowflake, 250);
+
 function createSparkle() {
     const sparkle = document.createElement('div');
     sparkle.classList.add('sparkle');
@@ -88,9 +230,8 @@ function createSparkle() {
     setTimeout(() => sparkle.remove(), 2000);
 }
 
-setInterval(createSparkle, 300);
+setInterval(createSparkle, 150);
 
-// Pháo hoa
 function createFirework() {
     const firework = document.createElement('div');
     firework.classList.add('firework');
@@ -98,37 +239,25 @@ function createFirework() {
     firework.style.top = Math.random() * 80 + 'vh';
     firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
     document.querySelector('.firework-container').appendChild(firework);
-    setTimeout(() => firework.remove(), 1000);
+    setTimeout(() => firework.remove(), 1200);
 }
 
-setInterval(createFirework, 1500);
-
-// Khởi tạo ảnh đầu tiên
-slideshowImage.classList.add('active');
+setInterval(createFirework, 600);
 
 // Điều khiển nhạc
-const audio = document.getElementById('background-music');
-const musicToggle = document.getElementById('music-toggle');
-let isPlaying = false;
+musicOff.addEventListener('click', () => {
+    backgroundMusic.pause();
+    isMusicPlaying = false;
+});
 
-audio.volume = 0.5;
-
-musicToggle.addEventListener('click', () => {
-    if (isPlaying) {
-        audio.pause();
-        musicToggle.textContent = '🎵 Bật Nhạc';
-    } else {
-        audio.play();
-        musicToggle.textContent = '🎵 Tắt Nhạc';
+musicOn.addEventListener('click', () => {
+    if (!isMusicPlaying) {
+        backgroundMusic.play().catch(() => {});
+        isMusicPlaying = true;
     }
-    isPlaying = !isPlaying;
 });
 
 window.addEventListener('load', () => {
-    audio.play().then(() => {
-        isPlaying = true;
-        musicToggle.textContent = '🎵 Tắt Nhạc';
-    }).catch(() => {
-        musicToggle.textContent = '🎵 Bật Nhạc';
-    });
+    updateSlides();
+    letter.classList.add('small');
 });

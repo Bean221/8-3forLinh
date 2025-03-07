@@ -3,53 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đàm Lê Ngọc Linh</title>
+    <title>Lá Thư Lãng Mạn Cho Em</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="background-overlay"></div>
-    <div class="flower-container"></div>
-    <div class="sparkle-container"></div>
+    <div class="bubble-container"></div>
+    <div class="snowflake-container"></div>
     <div class="firework-container"></div>
-    <div class="container">
-        <header>
-            <h1>💕Tuấn - Linh💕</h1>
-            <p>Mãi một tình yêu bé nha </p>
-            <div class="moving-text">❤️ 8-3 cho Zàng Iu ❤️</div>
-        </header>
-        <main>
-            <section id="kyniem" class="gallery">
-                <h2>Kỷ niệm của chúng ta</h2>
-                <div class="slideshow">
-                    <img id="slideshow-image" src="1.jpg" alt="Kỷ niệm">
-                    <div class="controls">
-                        <button id="prev-btn">◄</button>
-                        <button id="next-btn">►</button>
-                    </div>
-                </div>
-            </section>
-            <section id="loinhan" class="message-box">
-                <h2>Cô Giáo của anhhhhhhhhh, một đời dạy cho a nhaaaaa </h2>
-                <button id="love-button">Đôi Lời của a hihi </button>
-            </section>
-        </main>
-        <footer>
-            <p>From Lê Minh Tuấn (ck bé Linh)</p>
-        </footer>
+    <div class="sparkle-container"></div>
+    <div class="corner-decor top-left"></div>
+    <div class="corner-decor top-right"></div>
+    <div class="corner-decor bottom-left"></div>
+    <div class="corner-decor bottom-right"></div>
+    <div class="logo">
+        <img src="lover-photo.jpg" alt="Ảnh người yêu">
     </div>
-    <div id="modal" class="modal">
+    <div class="container">
+        <div class="letter" id="letter">
+            <div class="letter-front">
+                <div class="envelope-flap"></div>
+            </div>
+            <div class="letter-back">
+                <header>
+                    <h1>Thư gửi em yêu 💕</h1>
+                    <p>Món quà nhỏ từ trái tim anh.</p>
+                </header>
+                <main>
+                    <section class="gallery">
+                        <div class="slideshow">
+                            <div class="slides">
+                                <img src="image1.jpg" alt="Kỷ niệm 1">
+                                <img src="image2.jpg" alt="Kỷ niệm 2">
+                                <img src="image3.jpg" alt="Kỷ niệm 3">
+                                <img src="image4.jpg" alt="Kỷ niệm 4">
+                                <img src="image5.jpg" alt="Kỷ niệm 5">
+                                <img src="image6.jpg" alt="Kỷ niệm 6">
+                                <img src="image7.jpg" alt="Kỷ niệm 7">
+                                <img src="image8.jpg" alt="Kỷ niệm 8">
+                                <img src="image9.jpg" alt="Kỷ niệm 9">
+                                <img src="image10.jpg" alt="Kỷ niệm 10">
+                                <img src="image11.jpg" alt="Kỷ niệm 11">
+                                <img src="image12.jpg" alt="Kỷ niệm 12">
+                                <img src="image13.jpg" alt="Kỷ niệm 13">
+                                <img src="image14.jpg" alt="Kỷ niệm 14">
+                                <img src="image15.jpg" alt="Kỷ niệm 15">
+                                <img src="image16.jpg" alt="Kỷ niệm 16">
+                            </div>
+                        </div>
+                    </section>
+                    <section class="interactive-section">
+                        <button id="message-button">Lời Nhắn Của Anh 💌</button>
+                        <button id="quiz-button">Kiểm Tra Tình Yêu ❓</button>
+                    </section>
+                    <section class="quiz-section" id="quiz-section" style="display: none;">
+                        <h2 id="quiz-question"></h2>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-option="A">A</button>
+                            <button class="quiz-option" data-option="B">B</button>
+                            <button class="quiz-option" data-option="C">C</button>
+                            <button class="quiz-option" data-option="D">D</button>
+                        </div>
+                        <div id="quiz-feedback" class="quiz-feedback"></div>
+                    </section>
+                </main>
+                <footer>
+                    <p>Từ anh với tình yêu mãi mãi.</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <div id="message-modal" class="modal">
         <div class="modal-content">
-            <span id="close-modal" class="close">×</span>
-            <p id="message-text"></p> <!-- Để trống để JS gõ chữ -->
+            <span id="close-message-modal" class="close">×</span>
+            <p id="message-text"></p>
+        </div>
+    </div>
+    <div id="quiz-result-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-quiz-modal" class="close">×</span>
+            <p id="quiz-result"></p>
         </div>
     </div>
     <div class="music-control">
-        <button id="music-toggle">🎵 Bật/Tắt Nhạc</button>
+        <button id="music-off">🔇 Tắt Nhạc</button>
+        <button id="music-on">🎵 Mở Lại Nhạc</button>
         <audio id="background-music" loop>
             <source src="background-music.mp3" type="audio/mpeg">
-            Trình duyệt của bạn không hỗ trợ âm thanh.
         </audio>
+        <audio id="click-sound" src="click-sound.mp3"></audio>
     </div>
     <script src="script.js"></script>
-</body>
 </html>
