@@ -48,10 +48,10 @@ const questions = [
 
 // Lời nhắn ngẫu nhiên
 const randomMessages = [
-    "Em yêu, 8-3 anh yêu em rất rất nhiều. ❤️",
-    "Anh luôn nghĩ đến em mọi lúc Zàng iu. 💕",
-    "Phải thật hạnh phúc, cố gắng học tập và rèn luyện bản thân nhiều hơn nha 😘",
-    "với anh, mình thật may mắn khi có e bên cạnh ^^ 🌟",
+    "Em yêu, 8-3 anh yêu em rất rất nhiều, thật hạnh phúc bé nha, bé mauu mauu khỏe bệnh, luôn mạnh khỏe xinh đẹp nhaaa ❤️",
+    "Anh luôn nghĩ đến em mọi lúc Zàng iu, a sẽ cố gắng thật nhiều, vì hạnh phúc vì tình yêu của a hihii 💕",
+    "Phải thật hạnh phúc, cố gắng học tập và rèn luyện bản thân nhiều hơn nha,  😘",
+    "Với anh, mình thật may mắn khi có e bên cạnh ^^ , vì thế a ko để tụi mình xảy ra chuyện gì đâuu, luôn dịu dàng vs a nhaa vk hic hic a iuu emm🌟",
     "Hãy biến giấc mơ của e thành sự thật i nhan, và có cả anh nữa nha hii 💤"
 ];
 
