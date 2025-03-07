@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tặng Em - Điều Đặc Biệt Nhất</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="flower-container"></div>
+    <div class="sparkle-container"></div>
+    <div class="firework-container"></div>
+    <div class="container">
+        <header>
+            <h1>Chào em yêu của anh! 💕</h1>
+            <p>Món quà nhỏ anh dành riêng cho em.</p>
+            <div class="moving-text">Anh yêu em mãi mãi ❤️</div>
+        </header>
+        <main>
+            <section id="kyniem" class="gallery">
+                <h2>Kỷ niệm của chúng ta</h2>
+                <div class="slideshow">
+                    <img id="slideshow-image" src="image1.jpg" alt="Kỷ niệm">
+                    <div class="controls">
+                        <button id="prev-btn">◄</button>
+                        <button id="next-btn">►</button>
+                    </div>
+                </div>
+            </section>
+            <section id="loinhan" class="message-box">
+                <h2>Lời nhắn yêu thương</h2>
+                <button id="love-button">Xem lời nhắn của anh!</button>
+            </section>
+        </main>
+        <footer>
+            <p>Tạo bởi [Tên của bạn] với tất cả tình yêu dành cho em.</p>
+        </footer>
+    </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">×</span>
+            <p id="message-text"></p> <!-- Để trống để JS gõ chữ -->
+        </div>
+    </div>
+    <div class="music-control">
+        <button id="music-toggle">🎵 Bật/Tắt Nhạc</button>
+        <audio id="background-music" loop>
+            <source src="background-music.mp3" type="audio/mpeg">
+            Trình duyệt của bạn không hỗ trợ âm thanh.
+        </audio>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
