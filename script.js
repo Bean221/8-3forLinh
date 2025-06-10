@@ -20,39 +20,39 @@ const musicOn = document.getElementById('music-on');
 // Dữ liệu câu hỏi
 const questions = [
     {
-        question: "Lần đầu tiên anh nói yêu em là khi nào?",
-        options: { A: "Ngày sinh nhật em", B: "Lần hẹn hò thứ 3", C: "Ngày 14/2", D: "Ngày kỷ niệm 1 tháng" },
+        question: "Anh tỏ tình e khi nào nè ^^",
+        options: { A: "14-7", B: "15-7", C: "28-7", D: "29-7" },
         correct: "B"
     },
     {
-        question: "Món ăn em thích nhất mà anh hay làm là gì?",
-        options: { A: "Mì Ý", B: "Bánh mì trứng", C: "Phở", D: "Cơm chiên" },
-        correct: "A"
+        question: "Anh thích món quà nào nhất ",
+        options: { A: "Áo", B: "Vòng tay", C: "Giày", D: "Em" },
+        correct: "D"
     },
     {
         question: "Nơi mà chúng ta hay đi chơi nhất là đâu?",
         options: { A: "Công viên", B: "Bãi biển", C: "Rạp chiếu phim", D: "Quán cà phê" },
-        correct: "C"
+        correct: "D"
     },
     {
         question: "Màu sắc yêu thích của anh là gì?",
-        options: { A: "Xanh dương", B: "Đỏ", C: "Vàng", D: "Tím" },
+        options: { A: "Em", B: "Đỏ", C: "Vàng", D: "Tím" },
         correct: "A"
     },
     {
-        question: "Điều anh yêu nhất ở em là gì?",
-        options: { A: "Nụ cười", B: "Sự dịu dàng", C: "Tính hài hước", D: "Đôi mắt" },
-        correct: "B"
+        question: "Món quà đầu tiên a tặng em là gì ",
+        options: { A: "Áo Quần", B: "Vòng Tay", C: "Hoa", D: "là Anhhhh" },
+        correct: "D"
     }
 ];
 
 // Lời nhắn ngẫu nhiên
 const randomMessages = [
-    "Em yêu, anh yêu em rất rất nhiều. ❤️",
-    "Hôm nay em có vui không? Anh luôn nghĩ đến em. 💕",
-    "Anh nhớ em quá, muốn gặp em ngay bây giờ! 😘",
-    "Em có muốn đi xem phim với anh tối nay không? 🌟",
-    "Chúc em ngủ ngon, mơ đẹp về anh nhé! 💤"
+    "Em yêu, 8-3 anh yêu em rất rất nhiều, thật hạnh phúc bé nha, bé mauu mauu khỏe bệnh, luôn mạnh khỏe xinh đẹp nhaaa ❤️",
+    "Anh luôn nghĩ đến em mọi lúc Zàng iu, a sẽ cố gắng thật nhiều, vì hạnh phúc vì tình yêu của a hihii 💕",
+    "Phải thật hạnh phúc, cố gắng học tập và rèn luyện bản thân nhiều hơn nha,  😘",
+    "Với anh, mình thật may mắn khi có e bên cạnh ^^ , vì thế a ko để tụi mình xảy ra chuyện gì đâuu, luôn dịu dàng vs a nhaa vk hic hic a iuu emm🌟",
+    "Hãy biến giấc mơ của e thành sự thật i nhan, và có cả anh nữa nha hii 💤"
 ];
 
 // Trạng thái
@@ -176,10 +176,10 @@ function showQuizResult() {
     quizSection.style.display = 'none';
     const percentage = (score / questions.length) * 100;
     if (percentage === 100) {
-        quizResult.textContent = `Tuyệt vời! Tình yêu của chúng ta đạt 100%! 🎉`;
+        quizResult.textContent = `Zàng giỏi quá ! Bà Xã đúng 100%! 🎉`;
         createFireworkBurst(10);
     } else {
-        quizResult.textContent = `Tình yêu của chúng ta đạt ${percentage}%! Anh và em thật hiểu nhau! ❤️`;
+        quizResult.textContent = `Bà Xã đạt ${percentage}%! Quá Giỏi ❤️`;
     }
     quizResultModal.style.display = 'flex';
 }
